@@ -1,5 +1,5 @@
 import { createElement } from "react";
-import type { BaseConfig } from "./config";
+import type { BaseConfig } from "../config";
 
 type TextConfig = BaseConfig & {
   type: "text";

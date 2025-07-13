@@ -1,4 +1,4 @@
-import type { BaseConfig } from "./config";
+import type { BaseConfig } from "../config";
 
 type Cell = {
   colSpan?: number;
@@ -6,7 +6,7 @@ type Cell = {
   node: React.ReactNode;
 };
 
-export type TableConfig = BaseConfig & {
+type TableConfig = BaseConfig & {
   type: "table";
   columns: Cell[];
   rows: Cell[][];
