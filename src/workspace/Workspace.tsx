@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Document, { type Coord, type Props as DocumentProps } from "./Document";
 import Block, { type BaseProps as BlockProps } from "./Block";
 
-type Props = {
+export type Props = {
   document: Omit<
     DocumentProps,
     "onBoxHoverEnter" | "onBoxHoverLeave" | "isSelected"
