@@ -4,6 +4,7 @@ import DocumentComponent, {
   type DocumentProps,
 } from "../documents/Document";
 import Frame from "./Frame";
+import { useState } from "react";
 
 // top,right,bottom,left
 export type Coord = [number, number, number, number];
@@ -22,15 +23,20 @@ function Document({
   isSelected,
   ...props
 }: Props) {
+  const [isHover, setIsHover] = useState(false);
+
   return (
-    <Container>
+    <Container
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+    >
       <DocumentComponent {...props} />
       {boxes.map((coord) => (
         <Box
           coord={coord}
           onMouseEnter={() => onBoxHoverEnter(coord)}
           onMouseLeave={() => onBoxHoverLeave(coord)}
-          shouldFocus={isSelected(coord)}
+          shouldFocus={!isHover && isSelected(coord)}
           scrollPos="center"
         />
       ))}
