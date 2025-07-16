@@ -9,6 +9,15 @@ export const parse = (json: any): WorkspaceProps => {
     text: t.text,
   }));
 
+  const pictures = json.pictures.map((p: any) => ({
+    type: "picture",
+    id: p.self_ref,
+    bbox: p.prov[0].bbox,
+    width: p.image.size.width,
+    height: p.image.size.height,
+    src: p.image.uri,
+  }));
+
   const tables = json.tables.map((t: any) => {
     const data = t.data.table_cells.map((cell: any) => ({
       node: cell.text,
@@ -46,7 +55,7 @@ export const parse = (json: any): WorkspaceProps => {
     return [top, right, bottom, left];
   };
 
-  const elements = [...texts, ...tables];
+  const elements = [...texts, ...tables, ...pictures];
 
   const allCoordData = elements.map(
     (el) => [el.id, toTopLeftBox(el.bbox)] as [any, any]
