@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Document, { type Coord, type Props as DocumentProps } from "./Document";
 import Block, { type BaseProps as BlockProps } from "./Block";
@@ -23,15 +23,28 @@ function Workspace({ document, blocks, coordData }: Props) {
     )![0];
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [document]);
+
   return (
     <WorkspaceContainer>
       <DocumentContainer>
-        <Document
-          {...document}
-          isSelected={(coord) => isSelected(coordToId(coord))}
-          onBoxHoverEnter={(coord) => setSelectedId(coordToId(coord))}
-          onBoxHoverLeave={() => setSelectedId(null)}
-        />
+        <DocumentWrapper ref={ref}>
+          <Document
+            {...document}
+            isSelected={(coord) => isSelected(coordToId(coord))}
+            onBoxHoverEnter={(coord) => setSelectedId(coordToId(coord))}
+            onBoxHoverLeave={() => setSelectedId(null)}
+          />
+        </DocumentWrapper>
       </DocumentContainer>
       <FrameContainer
         onClick={(e) => {
@@ -51,18 +64,26 @@ const WorkspaceContainer = styled.div`
   height: 100vh;
 `;
 
+const DocumentWrapper = styled.div`
+  height: 200vh;
+  display: flex;
+  align-items: center;
+`;
+
 const DocumentContainer = styled.div`
   flex: 1;
   padding: 20px;
-  display: flex;
-  align-items: center;
   background: lightGray;
+  height: 100vh;
+  overflow: auto;
 `;
 
 const FrameContainer = styled.div`
   flex: 1;
   padding: 20px;
   min-width: 400px;
+  height: 100vh;
+  overflow: auto;
 `;
 
 export default Workspace;
