@@ -11,7 +11,11 @@ import { type BaseConfig } from "../blocks/config";
 import Frame from "./Frame";
 import styled from "styled-components";
 
-type Props = (ContainerConfig<ContainerType> | ElementConfig<ElementType>) & {
+export type BaseProps =
+  | ContainerConfig<ContainerType>
+  | ElementConfig<ElementType>;
+
+export type Props = BaseProps & {
   onClick: (id: BaseConfig["id"]) => void;
   isSelected: (id: BaseConfig["id"]) => boolean;
 };

@@ -6,9 +6,9 @@ import DocumentComponent, {
 import Frame from "./Frame";
 
 // top,right,bottom,left
-type Coord = [number, number, number, number];
+export type Coord = [number, number, number, number];
 
-type Props = DocumentProps<DocumentType> & {
+export type Props = DocumentProps<DocumentType> & {
   boxes: Coord[];
   onBoxHoverEnter: (coord: Coord) => void;
   onBoxHoverLeave: (coord: Coord) => void;
